@@ -19,7 +19,7 @@
 
   {% for b in batches %}
       <div id="#batch_{{b.id}}">
-        <h4> > <a href={% url 'batch_detail' b.id %}>{{b.theme}}</a></h4>
+        <h4> > <a href={% url 'talksplanning:batch_detail' b.id %}>{{b.theme}}</a></h4>
         <p>{{b.description}}</p>
         <ul>
           {% if b.programme %}
@@ -37,6 +37,6 @@
 {% block sidebar %}
   <h2>Liste des conférences</h2>
   {% for b in batches %}
-      <p><a href="{% url 'batch_detail' b.id %}">{{b.theme}}</a></p>
+      <p><a href="{% url 'talksplanning:batch_detail' b.id %}">{{b.theme}}</a></p>
   {% endfor %}
 {% endblock %}

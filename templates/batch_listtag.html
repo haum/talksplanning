@@ -2,7 +2,7 @@
 <h2>Conférences</h2>
 <ul>
 	{% for b in batches %}
-	<li><a href="{% url 'batch_detail' b.id %}">{{b}}</a></li>
+	<li><a href="{% url 'talksplanning:batch_detail' b.id %}">{{b}}</a></li>
 	{% endfor %}
 </ul>
 {% endif %}

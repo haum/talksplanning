@@ -52,6 +52,6 @@
 {% endblock %}
 
 {% block sidebar %}
-	<h5><a href={% url 'batch_detail' batch.id %}>Revenir à la conférence</a></h5>
+	<h5><a href={% url 'talksplanning:batch_detail' batch.id %}>Revenir à la conférence</a></h5>
   {# {% batch_list %} #}
 {% endblock %}
