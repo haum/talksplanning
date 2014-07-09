@@ -48,9 +48,9 @@ def batch_form(request, batch_id):
             return render_to_response('batch_detail.html', {'batch':batch, 'form': f}, context_instance=RequestContext(request))
         else:
             listener = f.save(batch)
-            return HttpResponseRedirect(reverse('batch_detail', args=(batch.id,)))
+            return HttpResponseRedirect(reverse('talksplanning:batch_detail', args=(batch.id,)))
     else:
-        return HttpResponseRedirect(reverse('batch_detail', args=(batch.id,)))
+        return HttpResponseRedirect(reverse('talksplanning:batch_detail', args=(batch.id,)))
 
 def talk_form(request, batch_id):
     """ Formulaire proposition de talk pour un batch """
@@ -70,7 +70,7 @@ def talk_form(request, batch_id):
         else:
             hacker = fH.save()
             talk = fT.save(batch, hacker)
-            return HttpResponseRedirect(reverse('batch_detail', args=(batch.id,)))
+            return HttpResponseRedirect(reverse('talksplanning:batch_detail', args=(batch.id,)))
     else:
         formTalk = TalkProposalForm()
         formHacker = HackerForm()
