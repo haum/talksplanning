@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 
-PREFIX = settings.TALKSPLANNING['url_prefix']
 
 urlpatterns = patterns('talksplanning.views',
     url(r'^/?$', 'home', name='home'),
