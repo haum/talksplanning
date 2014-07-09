@@ -1,0 +1,44 @@
+#tpform div {
+  float: left;
+  width: 49%;
+  padding: 0 10px 0 0;
+}
+
+#tpform div p {
+  text-align: right;
+}
+
+#tpform div p input {
+  width: 49%;
+  margin-left; 49%;
+}
+
+#tpform div p label {
+  display: block;
+  text-align: left;
+  float: left;
+  width: 49%;
+}
+
+#tpform div:last-child {
+  margin-left: 50%;
+  width: 49%;
+  padding: 0 0 0 10px;
+}
+
+#tpform textarea {
+  width: 99%;
+  height: 237px;
+}
+
+#tpform .quiet {
+  color: #444;
+  font-size: 0.8em;
+}
+
+#tpform>p {
+  text-align: center;
+  clear: both;
+  width: 100%;
+}
+
