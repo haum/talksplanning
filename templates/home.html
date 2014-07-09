@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1>HaumTalks - Site des conférences libres du HAUM</h1>
+
+  <h2>Késako ?</h2>
+  <p>
+    Dans son objectif de promouvoir la diffusion de connaisances et les rencontres entre personnes passionnées de nouvelles technologies, de hacks, de DIY, etc. le HAUM lance en 2014 l'organisation de conférences libres accessibles à tous. <br /><br />
+
+    Le principe est simple : une conférence est définie par une thématique fixée par le Haum. Chaque membre ou personne extérieure à l'association peut librement proposer d'intervenir sur un sujet de son choix, en lien avec cette thématique.
+    Pour exposer son sujet, chaque orateur dispose de 10 à 15 min (max). <br />
+    Chaque conférence se terminera par un échange entre intervenants et auditeurs, quant aux sujets abordés durant la session. <br /><br />
+
+  <h2>Liste des conférences</h2>
+
+    Pour chacune d'elles, vous pouvez intervenir en proposant un exposé sur le sujet de votre choix en lien avec la thématique, ou simplement vous inscrire pour y assister.
+  </p>
+
+  {% for b in batches %}
+      <div id="#batch_{{b.id}}">
+        <h4> > <a href={% url 'batch_detail' b.id %}>{{b.theme}}</a></h4>
+        <p>{{b.description}}</p>
+        <ul>
+          {% if b.programme %}
+            <li> {{b.date|date:"\L\e l j F à G\h"}}{% ifnotequal b.date.minute 0%}{{b.date|date:"i"}}{% endifnotequal %}
+          {% else %}
+            <li> La date n'est pas encore fixée</li>
+          {% endif %}
+          <li> Organisateur : {{b.responsable|capfirst}}
+          {% if b.talk_set.all %}<li> Talks : {{b.talk_set.all|join:", "}}{% endif %}
+        </ul>
+      </div>
+  {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+  <h2>Liste des conférences</h2>
+  {% for b in batches %}
+      <p><a href="{% url 'batch_detail' b.id %}">{{b.theme}}</a></p>
+  {% endfor %}
+{% endblock %}

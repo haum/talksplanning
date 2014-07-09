@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load talkstags %}
+
+{% block extraHead %}
+<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}/formTalkProposal.css">
+{% endblock %}
+
+{% block content %}
+
+  <h1>{{batch.theme}}</h1>
+
+  <p>{{batch.description}}</p>
+
+  <p>Organisé par :  {{batch.responsable|capfirst}} {% if talk.speaker.haum %}(Haum){% endif %}</p>
+
+  <h2>Soumission d'un talk</h2>
+
+  <p>
+  Les sujets sont libres mais nous vous rappelons que la durée d'un talk est fixée par défaut à 15min max.<br />
+  Une fois votre sujet soumis, celui-ci apparaîtra dans la liste des talks de la conférence après avoir été validé par le responsable de la conférence.
+  </p>
+
+  <p><b>Formulaire de soumission :</b></p>
+
+  <form action="" method="post" id="tpform">{% csrf_token %}
+	  {% for h in formTalk.hidden_fields %}{{hidden}}{% endfor %}
+    {% for h in formHacker.hidden_fields %}{{hidden}}{% endfor %}
+    <div>
+      <h3>Parlez nous de vous</h3>
+      {% for f in formHacker.visible_fields %}
+        {{f.errors}}
+        <p>{{f.label_tag}} {{f}}</p>
+      {% endfor %}
+
+      <h3>De quoi voulez vous parler ?</h3>
+      {% for f in formTalk.visible_fields %}
+        {% if not forloop.last %}
+        {{f.errors}}
+        <p>{{f.label_tag}} {{f}}</p>
+        {% else %}
+        </div><div>
+          <h3>{{f.label_tag}} <span class=quiet>({{f.help_text|lower}})</span></h3>
+          {{f.errors}}
+          {{f}}
+        {% endif %}
+      {% endfor %}
+      </div>
+      <p> <input type="submit" value="Envoyer"/> </p>
+  </form>
+
+{% endblock %}
+
+{% block sidebar %}
+	<h5><a href={% url 'batch_detail' batch.id %}>Revenir à la conférence</a></h5>
+  {# {% batch_list %} #}
+{% endblock %}

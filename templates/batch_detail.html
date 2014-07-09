@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load talkstags %}
+
+{% block content %}
+
+  <h1>{{batch}}</h1>
+
+  <p>{{batch.description|restructuredtext}}</p>
+
+  <p>Organisé par :  {{batch.responsable|capfirst}} {% if talk.speaker.haum %}(Haum){% endif %}</p>
+
+  <h3>Date : {{batch.date|date:"l j F à G\hi"}}</h3>
+
+  <h3>Assister à la conférence</h3>
+
+  <p>Pour assister à la conférence, veuillez communiquer votre nom/pseudo ainsi que votre adresse mail (cette dernière ne sera pas communiquée, elle nous servira uniquement à vous prévenir en cas de changement concernant la conférence).</p>
+
+  <form method='post' action="{% url 'batch_form' batch.id %}">{% csrf_token %}
+	  {{ form.as_p }}
+	  <input type=submit value="S'inscrire"/>
+  </form>
+
+  {% with p=auditeurs %}
+    {% if p %}
+    <p>Auditeur(s) inscrit(s) : {{auditeurs|join:", "}}</p>
+    {% else %}
+    <p>Personne ne s'est inscrit pour le moment... soyez le premier !</p>
+    {% endif %}
+  {% endwith %}
+
+  <h3>TALKS associés à cette conférence</h3>
+
+  <p>
+  Ci-après la liste des talks associés à cette conférence.<br /><br />
+  </p>
+
+  <b>Proposer un talk ?</b><br />
+  Si vous souhaitez proposer un talk sur un sujet de votre choix, vous pouvez le faire via notre <b><a href={% url 'talk_form' batch.id %}>formulaire de soumission</a></b>.
+  </p>
+
+  {% for t in talks %}
+    <div id="#{{t.titre|lower|cut:" "}}">
+      <h4>Talk n°{{forloop.counter}} : {{t.titre}}</h4>
+      <ul>
+        <li> Speaker : {{t.speaker|capfirst}}
+      </ul>
+      <p>{{t.description|restructuredtext}}</p>
+      {% if t.url %}
+        <p class="more"><a href="{{t.url}}">En savoir plus >></a></p>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+  <h5><a href="http://talks.haum.org">Accueil HAUMTalks</a></h5>
+  {# {% batch_list %} #}
+	<h2>Talks</h2>
+    <ul>
+      {% for t in talks %}
+        <li><a href="#{{t.titre|lower|cut:" "}}">{{t.titre}}</a>
+      {% endfor %}
+    </ul>
+
+{% endblock %}
+
+{#
+vim: ts=2 sw=2 et autoindent
+#}
